@@ -7,14 +7,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
+using Massive;
 
 namespace MvcMovie.Controllers
 {
     public class MoviesController : Controller
     {
-        private MovieDBContext db = new MovieDBContext();
+        protected dynamic _table;
+        private DynamicModel _movies;
 
+        public MoviesController( ) 
+        {
+            _table = new Movies();
+            ViewBag.Table = _table;
+        }
 
+        /*
 
         // GET: /Movies/SearchIndex
 #if ONE
@@ -98,26 +106,60 @@ public ActionResult SearchIndex(string Genre, string searchString)
             return "<h3> From [HttpPost]SearchIndex: " + searchString + "</h3>";
         }
 
-
+        */
         //
         // GET: /Movies/
 
         public ViewResult Index()
         {
-            return View(db.Movies.ToList());
+            IEnumerable<dynamic> items = _table.All(); 
+            return View(items);
         }
 
+
+         
+        [HttpGet]
+        public virtual ActionResult Edit(int id)
+        {
+            var model = _table.Get(ID: id);
+            model._Table = _table;
+            return View(model);
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken] 
+        public virtual ActionResult Edit(int id, FormCollection collection)
+        {
+            var model = _table.CreateFrom(collection);
+            try
+            {
+                // TODO: Add update logic here
+                _table.Update(model, id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception x)
+            {
+                TempData["Error"] = "There was a problem editing this record";
+                return View(model);
+            }
+        }
+
+
+        /*
         //
         // GET: /Movies/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Movie movie = db.Movies.Find(id);
-            if (movie == null)
-            {
-                return HttpNotFound();
-            }
-            return View(movie);
+            var model = _table.Get(ID: id);
+            model._Table = _table;
+            return View(model);
+            //Movie movie = db.Movies.Find(id);
+            //if (movie == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(movie);
         }
 
         //
@@ -136,11 +178,9 @@ public ActionResult SearchIndex(string Genre, string searchString)
         {
             if (ModelState.IsValid)
             {
-                db.Movies.Add(movie);
-                db.SaveChanges();
+                _table.Insert(movie);
                 return RedirectToAction("Index");
-            }
-
+            } 
             return View(movie);
         }
 
@@ -149,6 +189,7 @@ public ActionResult SearchIndex(string Genre, string searchString)
 
         public ActionResult Edit(int id = 0)
         {
+            var model = _table.Get(ID: id);
             Movie movie = db.Movies.Find(id);
             if (movie == null)
             {
@@ -213,7 +254,7 @@ public ActionResult DeleteConfirmed(int id = 0) {
 #endif
 
 
-
+        */
 
 
     }

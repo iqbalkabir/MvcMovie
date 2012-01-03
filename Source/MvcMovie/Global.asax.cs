@@ -33,7 +33,7 @@ namespace MvcMovie
 
         protected void Application_Start()
         {
-            Database.SetInitializer<MovieDBContext>(new MovieInitializer());
+            //Database.SetInitializer<MovieDBContext>(new MovieInitializer());
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);

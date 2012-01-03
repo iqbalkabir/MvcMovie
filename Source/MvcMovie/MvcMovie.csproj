@@ -76,7 +76,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Movie.cs" />
+    <Compile Include="Infastructure\Massive.cs" />
+    <Compile Include="Models\Movies.cs" />
     <Compile Include="Models\MovieIntializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -167,6 +168,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\HelloWorld\Welcome.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\Assets.cshtml" />
+    <Content Include="App_Code\Form.cshtml" />
+    <Content Include="App_Code\Template.cshtml" />
+    <Content Include="App_Code\Templates.cshtml" />
+    <Content Include="App_Code\URL.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
