@@ -145,6 +145,38 @@ public ActionResult SearchIndex(string Genre, string searchString)
         }
 
 
+
+        [HttpGet]
+        public virtual ActionResult Details(int id)
+        {
+            var result = _table.FindBy(ID: id); 
+            return View(result);
+        } 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View(_table.Prototype);
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken] 
+        public virtual ActionResult Create(FormCollection collection)
+        {
+            var model = _table.CreateFrom(collection);
+            try
+            {
+                // TODO: Add insert logic here
+                _table.Insert(model);
+                return RedirectToAction("Index");
+            }
+            catch (Exception x)
+            {
+                TempData["Error"] = "There was a problem adding this record";
+                return View();
+            }
+        }
+
+
         /*
         //
         // GET: /Movies/Details/5
