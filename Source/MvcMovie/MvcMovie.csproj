@@ -158,9 +158,6 @@
     <Content Include="Views\Movies\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Movies\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Movies\SearchIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
