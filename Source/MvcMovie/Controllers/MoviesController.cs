@@ -13,8 +13,7 @@ namespace MvcMovie.Controllers
 {
     public class MoviesController : Controller
     {
-        protected dynamic _table;
-        private DynamicModel _movies;
+        protected dynamic _table; 
 
         public MoviesController( ) 
         {
@@ -127,7 +126,7 @@ public ActionResult SearchIndex(string Genre, string searchString)
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public virtual ActionResult Edit(int id, FormCollection collection)
         {
             var model = _table.CreateFrom(collection);
@@ -149,9 +148,30 @@ public ActionResult SearchIndex(string Genre, string searchString)
         [HttpGet]
         public virtual ActionResult Details(int id)
         {
-            var result = _table.FindBy(ID: id); 
-            return View(result);
-        } 
+            var model = _table.Get(ID: id);
+            return View(model); 
+        }
+
+
+
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public virtual ActionResult Delete(int id)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                _table.Delete(id);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                TempData["Error"] = "There was a problem deleting this record";
+            }
+            return RedirectToAction("Index");
+        }
+
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -159,7 +179,7 @@ public ActionResult SearchIndex(string Genre, string searchString)
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public virtual ActionResult Create(FormCollection collection)
         {
             var model = _table.CreateFrom(collection);

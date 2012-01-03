@@ -12,6 +12,7 @@
 
 <div class="vidform">
     @using (Html.BeginForm()) { 
+        @Html.AntiForgeryToken()
         @Form.TextBoxRequired(name: "Title", value: Model.Title) 
         @Form.Submit()
     }
