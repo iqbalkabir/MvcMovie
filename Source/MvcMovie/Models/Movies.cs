@@ -7,7 +7,9 @@ namespace MvcMovie.Models
 {
     public class Movies : DynamicModel
     {
-        public Movies():base("MovieDBContext","Movies","ID") {
+        public Movies()
+            : base("SQLSERVER_CONNECTION_STRING", "Movies", "ID")
+        {
 
         }
 //        public dynamic FuzzySearch(string query) {
