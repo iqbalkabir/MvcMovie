@@ -10,7 +10,7 @@ namespace MvcMovie.Models
         public Movies()
             : base("SQLSERVER_CONNECTION_STRING", "Movies", "ID")
         {
-
+            //Test check-ins
         }
 //        public dynamic FuzzySearch(string query) {
 //            return this.Query(@"select ID, Title from productions
